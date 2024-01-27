@@ -1,0 +1,2 @@
+[1204/115151.072:ERROR:filesystem_win.cc(130)] GetFileAttributes C:\Users\calin\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\c33f5e35-7d72-4c3f-aeda-36a354be585d: The system cannot find the file specified. (0x2)
+[1204/115151.088:ERROR:filesystem_win.cc(130)] GetFileAttributes C:\Users\calin\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\c33f5e35-7d72-4c3f-aeda-36a354be585d: The system cannot find the file specified. (0x2)

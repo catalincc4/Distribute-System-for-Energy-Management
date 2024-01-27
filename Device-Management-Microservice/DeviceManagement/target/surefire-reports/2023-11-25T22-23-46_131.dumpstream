@@ -1,0 +1,5 @@
+# Created at 2023-11-25T22:23:46.331
+Boot Manifest-JAR contains absolute paths in classpath 'D:\DS2023_30641_Calin_Catalin_Iacob\ds2023_30641_calin_catalin_iacob_assigment_1_devicemanagement\DeviceManagement\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

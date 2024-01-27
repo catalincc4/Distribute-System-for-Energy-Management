@@ -1,0 +1,1 @@
+/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P rootR12345678! -d master -i init.sql

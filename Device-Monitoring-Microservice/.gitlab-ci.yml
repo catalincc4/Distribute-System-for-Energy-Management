@@ -1,0 +1,43 @@
+# The Docker image that will be used to build your app
+stages:
+    - build
+    - deploy
+
+variables:
+    IMAGE_TAG: monitoring-backend
+
+build_image:
+    stage: build
+    image: docker:24.0.7-cli
+    services:
+        - docker:24.0.7-dind
+    variables:
+        DOCKER_TLS_CERTDIR: "/certs"
+    before_script:
+        - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    script:
+        - docker pull $CI_REGISTRY_IMAGE || true
+        - docker build -t $CI_REGISTRY_IMAGE:$IMAGE_TAG ./MonitoringAndComunicationService
+        - docker push $CI_REGISTRY_IMAGE:$IMAGE_TAG
+
+
+deploy:
+    stage: deploy
+    before_script:
+        - chmod 0400 $SSH_KEY
+    script:
+        - ssh -i $SSH_KEY -o StrictHostKeyChecking=no calincatalin99@34.139.55.205 "
+            sudo rm -r ~/MonitoringBackend || true &&
+            mkdir MonitoringBackend || true"
+        - scp -r -i $SSH_KEY -o StrictHostKeyChecking=no ./MonitoringAndComunicationService/db calincatalin99@34.139.55.205:~/MonitoringBackend
+        - scp -i $SSH_KEY -o StrictHostKeyChecking=no ./MonitoringAndComunicationService/docker-compose.production.yml calincatalin99@34.139.55.205:~/MonitoringBackend/
+        - scp -i $SSH_KEY -o StrictHostKeyChecking=no ./MonitoringAndComunicationService/script.sh calincatalin99@34.139.55.205:~/MonitoringBackend/
+        - ssh -i $SSH_KEY -o StrictHostKeyChecking=no calincatalin99@34.139.55.205 "
+            docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY &&
+            docker stop monitoring-backend || true &&
+            docker rm monitoring-backend || true &&
+            docker rmi $CI_REGISTRY_IMAGE:$IMAGE_TAG || true &&
+            docker pull $CI_REGISTRY_IMAGE || true &&
+            CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE IMAGE_TAG=$IMAGE_TAG docker-compose -f ~/MonitoringBackend/docker-compose.production.yml up -d monitoring-app-backend"
+        - ssh -i $SSH_KEY -o StrictHostKeyChecking=no calincatalin99@34.139.55.205 "
+            sudo bash ./MonitoringBackend/script.sh monitoring-db db3"

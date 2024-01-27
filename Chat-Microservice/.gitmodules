@@ -1,0 +1,15 @@
+[submodule "User-Management-Microservice"]
+	path = User-Management-Microservice
+	url = https://github.com/catalincc4/Distribute-System-for-Energy-Management.git
+[submodule "Device-Management-Microservice"]
+	path = Device-Management-Microservice
+	url = https://github.com/catalincc4/Distribute-System-for-Energy-Management.git
+[submodule "Device-Monitoring-Microservice"]
+	path = Device-Monitoring-Microservice
+	url = https://github.com/catalincc4/Distribute-System-for-Energy-Management.git
+[submodule "FrontendApp"]
+	path = FrontendApp
+	url = https://github.com/catalincc4/Distribute-System-for-Energy-Management.git
+[submodule "Chat-Microservice"]
+	path = Chat-Microservice
+	url = https://github.com/catalincc4/Distribute-System-for-Energy-Management.git

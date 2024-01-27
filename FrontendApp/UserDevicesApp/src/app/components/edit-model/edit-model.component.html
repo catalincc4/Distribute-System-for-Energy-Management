@@ -1,0 +1,26 @@
+<div class="main-container">
+  <div *ngIf="mode === 1 || mode === 3" class="input-group form-control">
+    <input [style.border-color]="usernameCheck? '': 'red'" [(ngModel)]="user.username" placeholder="Username">
+    <input [style.border-color]="firstnameCheck? '': 'red'" [(ngModel)]="user.firstname" placeholder="Firstname">
+    <input [style.border-color]=" lastnameCheck ? '': 'red'" [(ngModel)]="user.lastname" placeholder="Lastname">
+    <input [style.border-color]=" passwordCheck ? '': 'red'" [(ngModel)]="user.password" placeholder="Password">
+    <select [style.border-color]="user.role.length > 0 && roleCheck ? '': 'red'" [(ngModel)]="user.role" matNativeControl required>
+      <option value="CLIENT">CLIENT</option>
+      <option value="ADMIN">ADMIN</option>
+    </select>
+  </div>
+  <div *ngIf="mode === 2 || mode === 4" class="input-group">
+    <input [style.border-color]=" descriptionCheck ? '': 'red'" [(ngModel)]="device.description" placeholder="Description">
+    <input [style.border-color]="addressCheck ?  '': 'red'" [(ngModel)]="device.address" placeholder="Address">
+    <input [style.border-color]="device.maxHourlyEnergyConsumption && energyConsumptionCheck? '': 'red'" [(ngModel)]="device.maxHourlyEnergyConsumption" placeholder="Max Hourly Energy Consumption">
+    <select [style.border-color]=" userCheck ? '': 'red'" [(ngModel)]="device.userId">
+      <option *ngFor="let u of users" [value]="u.id">
+        {{u.username}}
+      </option>
+    </select>
+  </div>
+    <div class="buttons">
+      <button (click)="cancel()" class="cancel-button">Cancel</button>
+      <button (click)="save()" class="save-button">Save</button>
+    </div>
+  </div>

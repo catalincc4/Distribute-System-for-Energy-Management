@@ -1,0 +1,62 @@
+<div class="main-container">
+  <div class="header">
+    <div class="header-name">Messenger</div>
+  </div>
+  <div class="display-section">
+    <div *ngIf="!showMessages" class="connections">
+      <div *ngFor="let conn of connections" class="connection"
+           (click)="openConversation(conn)"
+      >
+        <div class="connection-name">{{getConnectionName(conn)}}{{!conn.adminUser && isAdmin ? '(New)' : ''}}</div>
+        <div *ngIf="!conn.adminUser && hasUnreadMessages(conn)" class="point"></div>
+      </div>
+    </div>
+    <div *ngIf="showMessages" class="conversation">
+      <div class="conversation-header">
+        <svg (click)="showMessages = false" class="back-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+             id="arrow">
+          <path fill="none" d="M0 0h48v48H0z"></path>
+          <path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path>
+        </svg>
+        {{getConnectionName(activeConnection)}}</div>
+      <div #messagesSection class="messages">
+        <div *ngFor="let message of this.activeConnection.messages"
+             [ngClass]="message.sender.username == user.username ? 'message-sender' :'message-receiver'">
+          <div class="message">
+            {{message.message}}
+          </div>
+          <div class="sender">{{message.sender.username}}</div>
+          <div class="status-message">
+            {{message.status}}
+          </div>
+        </div>
+        <div *ngIf="showTypingInfo" class="typing-info">Typing...</div>
+      </div>
+      <div class="send-section">
+        <input (ngModelChange)="sendTypingInfo()" (keyup.enter)="sendMessage()" [(ngModel)]="message" class="input"
+               placeholder="Type a message">
+        <svg (click)="sendMessage()" class="send-icon" xmlns="http://www.w3.org/2000/svg" width="64pt" height="64pt"
+             viewBox="0 0 64 64" style="isolation:isolate" id="send">
+          <defs>
+            <clipPath id="a">
+              <rect width="64" height="64"></rect>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#a)">
+            <path
+              d=" M 8.216 36.338 L 26.885 32.604 C 28.552 32.271 28.552 31.729 26.885 31.396 L 8.216 27.662 C 7.104 27.44 6.021 26.356 5.799 25.245 L 2.065 6.576 C 1.731 4.908 2.714 4.133 4.259 4.846 L 61.228 31.139 C 62.257 31.614 62.257 32.386 61.228 32.861 L 4.259 59.154 C 2.714 59.867 1.731 59.092 2.065 57.424 L 5.799 38.755 C 6.021 37.644 7.104 36.56 8.216 36.338 Z "></path>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div *ngIf="!showMessages" (click)="makeNewConnection()" class="new-connection-button">+</div>
+  </div>
+  <div *ngIf="isAdmin && newConnection" (click)="newConnection=false" class="blur"></div>
+  <div *ngIf="isAdmin && newConnection" class="select-users-input">
+    <div *ngFor="let user of users; let i = index" class="list-users">
+      {{user.username}}
+      <mat-checkbox [(ngModel)]="selected[i]"></mat-checkbox>
+    </div>
+    <div (click)="createNewGroupConnection()" class="create-button">Create Conversation</div>
+  </div>
+</div>

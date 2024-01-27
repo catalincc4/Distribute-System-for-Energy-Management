@@ -1,0 +1,40 @@
+version: "3.3"
+services:
+  db4:
+    container_name: 'chat-db'
+    build:
+      context: ./db
+      dockerfile: ./Dockerfile
+    ports:
+      - "1437:1433"
+    environment:
+      SA_PASSWORD: rootR12345678!
+      ACCEPT_EULA: Y
+      MSSQL_PID: Express
+      MSSQL_DATABASE: chat_db
+    networks:
+      - SD1
+  chat-app-backend:
+    restart: always
+    image: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG}
+    depends_on:
+      - db4
+    container_name: chat-backend
+    environment:
+      DB_IP: "chat-db"
+      DB_PORT: "1433"
+      DB_USER: "sa"
+      DB_PASSWORD: "rootR12345678!"
+      AllowedOrigin: "http://34.139.55.205"
+    ports:
+      - "8083:8083"
+    expose:
+      - "8083"
+    networks:
+      - SD1
+volumes:
+  my-db: {}
+networks:
+  SD1:
+    external:
+      name: SD

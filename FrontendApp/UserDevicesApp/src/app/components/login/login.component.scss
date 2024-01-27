@@ -1,0 +1,87 @@
+.main-container{
+  display: flex;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem ;
+  user-select: none;
+  flex-direction: column;
+}
+.user-icon{
+  width: 8%;
+  height: 8%;
+  user-select: none;
+  margin: 1rem;
+  fill:#98CCD3;
+}
+.brand-bar{
+  display: flex;
+  flex-direction: row;
+  margin-left: -0.5rem;
+  margin-top:-0.5rem;
+  width: 100vw;
+  height: 5rem;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  background-color: #364E68;
+  overflow: hidden;
+}
+
+p{
+  font-family: "Gill Sans MT Ext Condensed Bold", sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 3rem;
+  color: #98CCD3;
+}
+svg{
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  fill: #98CCD3!important;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-input{
+  display: flex;
+  width:30rem;
+  height: 5rem;
+  color:#98CCD3;
+}
+input{
+  text-align: center!important;
+  width:30rem;
+  height: 5rem!important;
+  font-size: 2rem!important;
+}
+input::placeholder{
+  display: flex;
+  font-size: 1.5rem;
+  opacity: 0.5;
+  color: #8b9093!important;
+  text-align: center;
+  font-style: italic;
+}
+
+.login-button{
+  display: flex;
+  width: 15rem;
+  height: 3rem;
+  border: 0;
+  border-radius: 1rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #98CCD3;
+  background-color: #364E68;
+  cursor: pointer;
+  transition: ease-in-out background-color 200ms;
+  &:hover{
+    background-color: #48b3cb;
+  }
+}

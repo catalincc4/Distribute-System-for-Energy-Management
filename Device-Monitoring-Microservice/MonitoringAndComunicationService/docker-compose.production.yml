@@ -1,0 +1,40 @@
+version: "3.3"
+services:
+  db3:
+    container_name: 'monitoring-db'
+    build:
+      context: ./db
+      dockerfile: ./Dockerfile
+    ports:
+      - "1436:1433"
+    environment:
+      SA_PASSWORD: rootR12345678!
+      ACCEPT_EULA: Y
+      MSSQL_PID: Express
+      MSSQL_DATABASE: dataDevice_db
+    networks:
+      - SD1
+  monitoring-app-backend:
+    restart: always
+    image: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG}
+    depends_on:
+      - db3
+    container_name: monitoring-backend
+    environment:
+      DB_IP: "monitoring-db"
+      DB_PORT: "1433"
+      DB_USER: "sa"
+      DB_PASSWORD: "rootR12345678!"
+      AllowedOrigin: "http://34.139.55.205"
+    ports:
+      - "8082:8082"
+    expose:
+      - "8082"
+    networks:
+      - SD1
+volumes:
+  my-db: {}
+networks:
+  SD1:
+    external:
+      name: SD

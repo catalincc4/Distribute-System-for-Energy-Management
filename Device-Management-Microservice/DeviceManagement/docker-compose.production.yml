@@ -1,0 +1,40 @@
+version: "3.3"
+services:
+  db2:
+    container_name: 'device-db'
+    build:
+      context: ./db
+      dockerfile: ./Dockerfile
+    ports:
+      - "1435:1433"
+    environment:
+      SA_PASSWORD: rootR12345678!
+      ACCEPT_EULA: Y
+      MSSQL_PID: Express
+      MSSQL_DATABASE: device_db
+    networks:
+      - SD1
+  devices-app-backend:
+    restart: always
+    image: ${CI_REGISTRY_IMAGE}:${IMAGE_TAG}
+    depends_on:
+      - db2
+    container_name: devices-backend
+    environment:
+      DB_IP: "device-db"
+      DB_USER: "sa"
+      DB_PASSWORD: "rootR12345678!"
+      DB_PORT: "1433"
+      DB_NAME: "device_db"
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    networks:
+      - SD1
+volumes:
+  my-db: {}
+networks:
+  SD1:
+    external:
+      name: SD

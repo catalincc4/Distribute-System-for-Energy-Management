@@ -1,0 +1,247 @@
+.main-container{
+  display: flex;
+  min-width: 75rem;
+  width:100%;
+  height:100%;
+  min-height: calc(100vh - 7rem);
+  margin-top: 1rem;
+  flex-direction: column;
+  user-select: none;
+  position: relative;
+  z-index: 0;
+  align-items: center;
+}
+
+.options-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 5rem;
+  border-bottom: 0.2rem solid  #132238;
+}
+
+.select-button{
+  width: 10rem;
+  display: flex;
+  margin:1.5rem;
+  justify-content: center;
+  font-size: 1.9rem;
+  font-family: "Gill Sans MT Ext Condensed Bold", sans-serif;
+  font-weight: bold;
+  user-select: none;
+  color: #132238;
+  height: max-content;
+  border-bottom:#132238 solid 0.2rem;
+  border-left:#132238 solid 0.2rem;
+  border-right:#132238 solid 0.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  &:hover{
+    background-color: #5a92d2;
+  }
+}
+table{
+  user-select: none;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.table{
+  margin-top: 1rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  user-select: none;
+  width: 80%;
+  background-color: #576c8c;
+}
+tr{
+  display: flex;
+  border-bottom: 0.2rem solid #57afb6;
+  border-right: 0.1rem solid #132238;
+  border-left: 0.1rem solid #132238;
+  user-select: none
+}
+td{
+  display: flex;
+  width:20%;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  border-left: 0.1rem solid#132238;
+  user-select: none;
+}
+th{
+  display: flex;
+  width: 20%;
+  border-left: 0.1rem solid #132238;
+  user-select: none;
+  align-items:center;
+  justify-content: center;
+}
+svg{
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  margin: 0.5rem;
+}
+
+.popup{
+  font-family: "Gill Sans MT Ext Condensed Bold", sans-serif;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100vw;
+  min-width: 75rem;
+  height: 100vh;
+  transform: translateY(-98.4%);
+  background-color: #fcfcfc;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  user-select: none;
+  opacity: 0.5;
+  filter: blur(1rem);
+  z-index: 1;
+
+}
+.popup-context{
+  opacity: 1;
+  display: flex;
+  transform: translate(190%, -250%);
+  font-family: "Gill Sans MT Ext Condensed Bold", sans-serif;
+  font-size: 2rem;
+  position: absolute;
+  font-weight: bold;
+  z-index: 20;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  border-radius: 1rem;
+  width: 25rem;
+  height: 15rem;
+  user-select: none;
+  color: #48b3cb;
+  background-color:#45474B;
+}
+
+h4{
+  margin: 2rem;
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.edit-popup{
+  display: flex;
+  z-index: 5;
+  position: absolute;
+  transform: translate(150%, -200%);
+}
+
+.add-button{
+  display: flex;
+  width:max-content;
+  margin:1rem;
+  background-color: #45474B;
+  color: #5a92d2;
+  border-radius:0.5rem;
+  border: 0;
+  font-size: 1.5rem;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-family: "Gill Sans MT Ext Condensed Bold", sans-serif;
+  cursor: pointer;
+  &:hover{
+    background-color: #676c8d;
+  }
+}
+
+.add-icon{
+  font-weight: 800;
+  fill:#57afb6;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.data-container{
+  width: 80%;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 2rem;
+}
+.card{
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+.edit-icon{
+  fill: greenyellow;
+}
+.delete-icon{
+  fill: red;
+}
+
+h4{
+  border: 0.2rem solid #4c9eb6;
+  border-radius: 1rem;
+  &:hover{
+    background-color:#4a5c81;
+  }
+}
+.warning-popup{
+  opacity: 1;
+  display: flex;
+  transform: translate(190%, -250%);
+  font-family: "Gill Sans MT Ext Condensed Bold", sans-serif;
+  font-size: 2rem;
+  position: absolute;
+  font-weight: bold;
+  z-index: 20;
+  flex-direction: column;
+  align-items: center;
+  text-align:center;
+  justify-content: center;
+  justify-items: center;
+  border-radius: 1rem;
+  width: 25rem;
+  height: 15rem;
+  user-select: none;
+  color: #656161;
+  background-color: #d75e04;
+}
+
+.warning-button{
+  margin:1rem;
+  font-size:1.5rem;
+  background-color: #c29c32;
+  border-radius: 1rem;
+}
+
+.messages-section{
+  display: flex;
+  position:absolute;
+  font-size: 2rem;
+  right: 5rem;
+  bottom: 5rem;
+  justify-self: flex-end;
+  cursor:pointer;
+}
+
+.message-icon{
+ transform:scale(1.8);
+}
+.messanger{
+  display: flex;
+  position:absolute;
+  transform: translate(-22rem, -40.5rem);
+  cursor: default;
+}

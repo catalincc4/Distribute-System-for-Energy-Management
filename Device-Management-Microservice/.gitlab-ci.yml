@@ -1,0 +1,43 @@
+# The Docker image that will be used to build your app
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_TAG: device-management-backend
+
+build_image:
+  stage: build
+  image: docker:24.0.7-cli
+  services:
+    - docker:24.0.7-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+  script:
+    - docker pull $CI_REGISTRY_IMAGE || true
+    - docker build -t $CI_REGISTRY_IMAGE:$IMAGE_TAG ./DeviceManagement
+    - docker push $CI_REGISTRY_IMAGE:$IMAGE_TAG
+
+
+deploy:
+  stage: deploy
+  before_script:
+    - chmod 0400 $SSH_KEY
+  script:
+    - ssh -i $SSH_KEY -o StrictHostKeyChecking=no calincatalin99@35.243.255.80 "
+      sudo rm -r ~/DeviceManagement || true &&
+      mkdir DeviceManagement || true"
+    - scp -r -i $SSH_KEY -o StrictHostKeyChecking=no ./DeviceManagement/db calincatalin99@35.243.255.80:~/DeviceManagement
+    - scp -i $SSH_KEY -o StrictHostKeyChecking=no ./DeviceManagement/docker-compose.production.yml calincatalin99@35.243.255.80:~/DeviceManagement/
+    - scp -i $SSH_KEY -o StrictHostKeyChecking=no ./DeviceManagement/script.sh calincatalin99@35.243.255.80:~/DeviceManagement/
+    - ssh -i $SSH_KEY -o StrictHostKeyChecking=no calincatalin99@35.243.255.80 "
+      docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY &&
+      docker stop devices-backend || true &&
+      docker rm devices-backend || true &&
+      docker rmi $CI_REGISTRY_IMAGE || true &&
+      docker pull $CI_REGISTRY_IMAGE:$IMAGE_TAG || true &&
+      CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE IMAGE_TAG=$IMAGE_TAG docker-compose -f ~/DeviceManagement/docker-compose.production.yml up -d devices-app-backend"
+    - ssh -i $SSH_KEY -o StrictHostKeyChecking=no calincatalin99@35.243.255.80 "
+      bash ./DeviceManagement/script.sh device-db db2"
