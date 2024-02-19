@@ -1,4 +1,4 @@
-This Repo contain the implementaion of a Distributed System for Energy Management, the system it's been deploied on GoogleCloud, but probably it will not be available any more, because the my free period experied
+This Repo contain the implementaion of a Distributed System for Energy Management, the system it's been deploied on GoogleCloud, but probably it will not be available any more, because my free period experied
 Technologies overview: Java Spring, Python, WebSockets, RabbitMQ, AngularJS, Docker, Google Cloud, MSSQL, CI/CD for GitLab 
 - In every directory, you will see the CI/CD file for GitLab, because when I creted this system, I use GitLab
 - To deploy this system, I created a VM on Google Cloud useing Docker to deploy the Microservices.
